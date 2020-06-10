@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,8 +50,10 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-
+        viewModel = ViewModelProvider(
+                this,
+                ViewModelFactory(ApiHelper.ApiHelper(ApiServiceImpl()))
+        ).get(MainViewModel::class.java)
     }
 
     private fun setupUI(view: View) {
@@ -94,7 +97,8 @@ class MainFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        mainViewModel = ViewModelProviders.of(
+
+        mainViewModel = ViewModelProvider(
                 this,
                 ViewModelFactory(ApiHelper.ApiHelper(ApiServiceImpl()))
         ).get(MainViewModel::class.java)

@@ -30,7 +30,8 @@ class MainFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var adapter: MainAdapter
-
+    private lateinit var layoutView: View
+    private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,11 +42,9 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-
-
-        var view = inflater.inflate(R.layout.main_fragment, container, false)
-        setupUI(view)
-        return view
+        layoutView = inflater.inflate(R.layout.main_fragment, container, false)
+        setupUI(layoutView)
+        return layoutView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,7 +57,7 @@ class MainFragment : Fragment() {
 
     private fun setupUI(view: View) {
 
-        var recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = MainAdapter(arrayListOf())
         recyclerView.addItemDecoration(
